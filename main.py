@@ -225,10 +225,61 @@ def process_accounts(accounts):
     else:
         log_message(f"NO SLEEP NEEDED, TOTAL PROCESSING TIME EXCEEDED 1 HOUR", Fore.YELLOW)
 
-if __name__ == "__main__":
-    # Load accounts from the data.txt file
-    accounts = load_accounts_from_file('data.txt')
+def add_query():
+    query = input("Enter the query to add: ")
+    with open('data.txt', 'a') as file:
+        file.write(query + '\n')
+    log_message("Query added successfully", Fore.GREEN)
 
-    # Infinite loop to process accounts
+def add_proxy():
+    proxy = input("Enter the proxy to add: ")
+    with open('proxy.txt', 'a') as file:
+        file.write(proxy + '\n')
+    log_message("Proxy added successfully", Fore.GREEN)
+
+def reset_query():
+    with open('data.txt', 'w') as file:
+        file.write('')
+    log_message("Query data reset successfully", Fore.GREEN)
+
+def reset_proxy():
+    with open('proxy.txt', 'w') as file:
+        file.write('')
+    log_message("Proxy data reset successfully", Fore.GREEN)
+
+def print_banner():
+    print("███████  █████  ██    ██  █████  ███    ██ ")
+    print("██      ██   ██ ██    ██ ██   ██ ████   ██ ")
+    print("███████ ███████ ██    ██ ███████ ██ ██  ██ ")
+    print("     ██ ██   ██  ██  ██  ██   ██ ██  ██ ██ ")
+    print("███████ ██   ██   ████   ██   ██ ██   ████ ")
+    print(" made and written by savan || @savanop")
+    print("Join telegram channel: https://t.me/savanop121")
+
+if __name__ == "__main__":
+    print_banner()
     while True:
-        process_accounts(accounts)
+        print("\n1. Add Query")
+        print("2. Add Proxy")
+        print("3. Reset Query")
+        print("4. Reset Proxy")
+        print("5. Start")
+        
+        choice = input("Enter your choice (1-5): ")
+        
+        if choice == '1':
+            add_query()
+        elif choice == '2':
+            add_proxy()
+        elif choice == '3':
+            reset_query()
+        elif choice == '4':
+            reset_proxy()
+        elif choice == '5':
+            # Load accounts from the data.txt file
+            accounts = load_accounts_from_file('data.txt')
+            # Infinite loop to process accounts
+            while True:
+                process_accounts(accounts)
+        else:
+            log_message("Invalid choice. Please try again.", Fore.RED)
