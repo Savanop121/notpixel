@@ -2,6 +2,7 @@
 
 This Python NotPixel Bot script manages Multi Account for NotPixel bot, Unlimited Account Support handling AUTO PIXEL FILL , AUTO RESOURCE CLAIM. If you can run your pc 24/7 then you dont need a Vps else Better buy a small VPS!!
 
+join telegram  https://t.me/savanop121
 **Register here NotPixel** - [https://t.me/notpixel/app?startapp=f6032442305](https://t.me/notpixel/app?startapp=f6032442305)
 
 # NotPixel backed by Notcoin
@@ -16,8 +17,8 @@ This Python NotPixel Bot script manages Multi Account for NotPixel bot, Unlimite
 
 # Setps to follow !
 
-1. clone the repo - `git clone https://github.com/Solana0x/NotPixel`
-2. Then `cd NotPixel`
+1. clone the repo - `https://github.com/Savanop121/notpixel.git`
+2. Then `cd notPixel`
 3. Install Python
 4. Then `pip install -r requirements.txt`
 6. Get `query_id=` from Telegram desktop by right click on your bot and then inspect
