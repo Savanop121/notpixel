@@ -206,24 +206,29 @@ def main(auth, account):
 
 # Main process loop to manage accounts and sleep logic
 def process_accounts(accounts):
-    # Track the start time of the first account
-    first_account_start_time = datetime.now()
+    while True:
+        start_time = datetime.now()
+        
+        for account in accounts:
+            # Process each account one by one
+            username = extract_username_from_initdata(account)
+            log_message(f"--- STARTING SESSION FOR ACCOUNT: {username} ---", Fore.BLUE)
+            main(account, account)
 
-    for account in accounts:
-        # Process each account one by one
-        username = extract_username_from_initdata(account)
-        log_message(f"--- STARTING SESSION FOR ACCOUNT: {username} ---", Fore.BLUE)
-        main(account, account)
+        # Calculate the time elapsed since the start
+        time_elapsed = datetime.now() - start_time
+        time_to_wait = timedelta(minutes=12) - time_elapsed
 
-    # Calculate the time elapsed since the first account started processing
-    time_elapsed = datetime.now() - first_account_start_time
-    time_to_wait = timedelta(hours=1) - time_elapsed
-
-    if time_to_wait.total_seconds() > 0:
-        log_message(f"SLEEPING FOR {int(time_to_wait.total_seconds() // 60)} MINUTES", Fore.YELLOW)
-        time.sleep(time_to_wait.total_seconds())
-    else:
-        log_message(f"NO SLEEP NEEDED, TOTAL PROCESSING TIME EXCEEDED 1 HOUR", Fore.YELLOW)
+        if time_to_wait.total_seconds() > 0:
+            log_message(f"SLEEPING FOR {int(time_to_wait.total_seconds() // 60)} MINUTES", Fore.YELLOW)
+            for remaining in range(int(time_to_wait.total_seconds()), 0, -1):
+                mins, secs = divmod(remaining, 60)
+                timer = f"{mins:02d}:{secs:02d}"
+                print(f"\rTime remaining: {timer}", end="", flush=True)
+                time.sleep(1)
+            print("\nWait time completed. Restarting the process...")
+        else:
+            log_message(f"NO SLEEP NEEDED, TOTAL PROCESSING TIME EXCEEDED 12 MINUTES", Fore.YELLOW)
 
 def add_query():
     query = input("Enter the query to add: ")
@@ -278,8 +283,7 @@ if __name__ == "__main__":
         elif choice == '5':
             # Load accounts from the data.txt file
             accounts = load_accounts_from_file('data.txt')
-            # Infinite loop to process accounts
-            while True:
-                process_accounts(accounts)
+            # Start the process_accounts function
+            process_accounts(accounts)
         else:
             log_message("Invalid choice. Please try again.", Fore.RED)
